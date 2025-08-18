@@ -21,7 +21,7 @@ Got a slow, unreliable download link? This Cloudflare Worker acts as a smart pro
 3. Give your worker a name (e.g., `download-stabilizer`)
 
 ### Step 2: Copy the Code
-1. Copy the code from [`src/worker.js`](scr/worker.js) in this repository
+1. Copy the code from [`src/worker.js`](src/worker.js) in this repository
 2. Paste it into the Cloudflare Worker editor
 3. Click **Save and Deploy**
 
