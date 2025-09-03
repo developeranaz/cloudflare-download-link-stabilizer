@@ -207,252 +207,256 @@ function getInterface() {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloudflare Download Link Stabilizer</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: white;
-        }
-        .container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 10px;
-            font-size: 2.5em;
-            background: linear-gradient(45deg, #fff, #f0f0f0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .subtitle {
-            text-align: center;
-            margin-bottom: 40px;
-            opacity: 0.9;
-            font-size: 1.1em;
-        }
-        .form-group {
-            margin-bottom: 25px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            font-size: 1.1em;
-        }
-        input[type="url"] {
-            width: 100%;
-            padding: 15px 20px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            font-size: 16px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-        }
-        input[type="url"]:focus {
-            outline: none;
-            border-color: rgba(255, 255, 255, 0.5);
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-        input[type="url"]::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-        .button-group {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
-        button {
-            flex: 1;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .btn-primary {
-            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
-            color: white;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-        }
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
-        }
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-        .result {
-            margin-top: 30px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            border-left: 4px solid #4ecdc4;
-            display: none;
-        }
-        .result.show {
-            display: block;
-            animation: slideIn 0.5s ease;
-        }
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .proxy-url {
-            word-break: break-all;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            margin: 10px 0;
-        }
-        .copy-btn {
-            background: #4ecdc4;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 12px;
-            margin-top: 10px;
-            transition: all 0.2s ease;
-        }
-        .copy-btn:hover {
-            background: #45b7aa;
-        }
-        .features {
-            margin-top: 40px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .feature {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-        }
-        .feature-icon {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloudflare Download Link Stabilizer</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: white;
+      transition: all 0.4s ease;
+    }
+    .dark-mode {
+      background: #121212 !important;
+      color: #e0e0e0;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.4s ease;
+    }
+    .dark-mode .container {
+      background: rgba(30, 30, 30, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 2.5em;
+      background: linear-gradient(45deg, #fff, #f0f0f0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .dark-mode h1 {
+      background: linear-gradient(45deg, #ffffff, #cccccc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle {
+      text-align: center;
+      margin-bottom: 40px;
+      opacity: 0.9;
+      font-size: 1.1em;
+    }
+    .form-group { margin-bottom: 25px; }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 1.1em;
+    }
+    input[type="url"] {
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      font-size: 16px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+    input[type="url"]:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    .button-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    button {
+      flex: 1;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .btn-primary {
+      background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+      color: white;
+      box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+    /* Night Mode Toggle Button with Animations */
+    .btn-toggle {
+      background: linear-gradient(45deg, #4ecdc4, #2bbbad);
+      color: white;
+      border: none;
+      flex: none;
+      padding: 15px 30px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+      transition: all 0.3s ease;
+    }
+    .btn-toggle:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
+    }
+    .result {
+      margin-top: 30px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      border-left: 4px solid #4ecdc4;
+      display: none;
+      transition: all 0.4s ease;
+    }
+    .dark-mode .result {
+      background: rgba(50, 50, 50, 0.9);
+    }
+    .result.show { display: block; animation: slideIn 0.5s ease; }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .proxy-url {
+      word-break: break-all;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 15px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      margin: 10px 0;
+    }
+    .copy-btn {
+      background: #4ecdc4;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+    .features {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .feature {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+    }
+    .dark-mode .feature {
+      background: rgba(40, 40, 40, 0.9);
+    }
+    .feature-icon { font-size: 2em; margin-bottom: 10px; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>⚡ Cloudflare Download Link Stabilizer</h1>
-        <p class="subtitle">Transform slow and unstable download links into high-speed, reliable connections</p>
-        
-        <form id="proxyForm">
-            <div class="form-group">
-                <label for="downloadUrl">Enter Download URL:</label>
-                <input type="url" 
-                       id="downloadUrl" 
-                       placeholder="https://example.com/slow-download-link.mp4" 
-                       required>
-            </div>
-            
-            <div class="button-group">
-                <button type="submit" class="btn-primary">🚀 Stabilize Download Link</button>
-                <button type="button" class="btn-secondary" onclick="clearForm()">🔄 Clear</button>
-            </div>
-        </form>
+  <div class="container">
+    <h1>⚡ Cloudflare Download Link Stabilizer</h1>
+    <p class="subtitle">Transform slow and unstable download links into high-speed, reliable connections</p>
+    
+    <form id="proxyForm">
+      <div class="form-group">
+        <label for="downloadUrl">Enter Download URL:</label>
+        <input type="url" id="downloadUrl" placeholder="https://example.com/file.zip" required>
+      </div>
+      <div class="button-group">
+        <button type="submit" class="btn-primary">🚀 Stabilize</button>
+        <button type="button" class="btn-secondary" onclick="clearForm()">🔄 Clear</button>
+        <button type="button" class="btn-toggle" onclick="toggleDarkMode()">🌙 Night Mode</button>
+      </div>
+    </form>
 
-        <div id="result" class="result">
-            <h3>✅ Stabilized Download URL Generated!</h3>
-            <p>Use this enhanced URL for stable, high-speed downloads:</p>
-            <div class="proxy-url" id="proxyUrl"></div>
-            <button class="copy-btn" onclick="copyToClipboard()">📋 Copy URL</button>
-            <p><small>This URL supports range requests for multithreaded downloads and provides automatic retry on failures.</small></p>
-        </div>
-
-        <div class="features">
-            <div class="feature">
-                <div class="feature-icon">⚡</div>
-                <h3>Speed Boost</h3>
-                <p>Optimized routing through Cloudflare's global network</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🔄</div>
-                <h3>Auto Retry</h3>
-                <p>Automatic retries on connection failures</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">📊</div>
-                <h3>Range Support</h3>
-                <p>Full support for multithreaded downloads</p>
-            </div>
-        </div>
+    <div id="result" class="result">
+      <h3>✅ Stabilized Download URL Generated!</h3>
+      <p>Use this enhanced URL for stable, high-speed downloads:</p>
+      <div class="proxy-url" id="proxyUrl"></div>
+      <button class="copy-btn" onclick="copyToClipboard()">📋 Copy URL</button>
     </div>
 
-    <script>
-        document.getElementById('proxyForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const downloadUrl = document.getElementById('downloadUrl').value;
-            const baseUrl = window.location.origin;
-            const encodedUrl = encodeURIComponent(downloadUrl);
-            const proxyUrl = baseUrl + '/' + encodedUrl;
-            
-            document.getElementById('proxyUrl').textContent = proxyUrl;
-            document.getElementById('result').classList.add('show');
-            
-            // Scroll to result
-            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
-        });
+    <div class="features">
+      <div class="feature"><div class="feature-icon">⚡</div><h3>Speed Boost</h3><p>Optimized routing</p></div>
+      <div class="feature"><div class="feature-icon">🔄</div><h3>Auto Retry</h3><p>Retries on failures</p></div>
+      <div class="feature"><div class="feature-icon">📊</div><h3>Range Support</h3><p>Multithreaded downloads</p></div>
+    </div>
+  </div>
 
-        function copyToClipboard() {
-            const proxyUrl = document.getElementById('proxyUrl').textContent;
-            navigator.clipboard.writeText(proxyUrl).then(function() {
-                const btn = document.querySelector('.copy-btn');
-                const originalText = btn.textContent;
-                btn.textContent = '✅ Copied!';
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                }, 2000);
-            }).catch(function(err) {
-                console.error('Could not copy text: ', err);
-            });
-        }
+  <script>
+    document.getElementById('proxyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const downloadUrl = document.getElementById('downloadUrl').value;
+      const baseUrl = window.location.origin;
+      const encodedUrl = encodeURIComponent(downloadUrl);
+      const proxyUrl = baseUrl + '/' + encodedUrl;
+      document.getElementById('proxyUrl').textContent = proxyUrl;
+      document.getElementById('result').classList.add('show');
+      document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+    });
 
-        function clearForm() {
-            document.getElementById('downloadUrl').value = '';
-            document.getElementById('result').classList.remove('show');
-        }
-    </script>
+    function copyToClipboard() {
+      const proxyUrl = document.getElementById('proxyUrl').textContent;
+      navigator.clipboard.writeText(proxyUrl).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = '✅ Copied!';
+        setTimeout(() => btn.textContent = '📋 Copy URL', 2000);
+      });
+    }
+
+    function clearForm() {
+      document.getElementById('downloadUrl').value = '';
+      document.getElementById('result').classList.remove('show');
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      const btn = document.querySelector('.btn-toggle');
+      if (document.body.classList.contains('dark-mode')) {
+        btn.textContent = '☀️ Light Mode';
+      } else {
+        btn.textContent = '🌙 Night Mode';
+      }
+    }
+  </script>
 </body>
-</html>`
+</html>`;
 }
