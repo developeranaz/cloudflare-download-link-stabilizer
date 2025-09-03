@@ -319,7 +319,6 @@ function getInterface() {
       background: rgba(255, 255, 255, 0.3);
       transform: translateY(-2px);
     }
-    /* Night Mode Toggle Button with Animations */
     .btn-toggle {
       background: linear-gradient(45deg, #4ecdc4, #2bbbad);
       color: white;
@@ -362,15 +361,25 @@ function getInterface() {
       font-family: 'Courier New', monospace;
       margin: 10px 0;
     }
-    .copy-btn {
-      background: #4ecdc4;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 12px;
-      margin-top: 10px;
+    .result-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+    .result-buttons button {
+      flex: none;
+      padding: 10px 18px;
+      font-size: 14px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    .copy-btn { background: #4ecdc4; color: white; }
+    .download-btn { background: #ff9f43; color: white; }
+    .play-btn { background: #48dbfb; color: white; }
+    .copy-btn:hover, .download-btn:hover, .play-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
     }
     .features {
       margin-top: 40px;
@@ -411,13 +420,29 @@ function getInterface() {
       <h3>✅ Stabilized Download URL Generated!</h3>
       <p>Use this enhanced URL for stable, high-speed downloads:</p>
       <div class="proxy-url" id="proxyUrl"></div>
-      <button class="copy-btn" onclick="copyToClipboard()">📋 Copy URL</button>
+      <div class="result-buttons">
+        <button class="copy-btn" onclick="copyToClipboard()">📋 Copy URL</button>
+        <button class="download-btn" onclick="downloadFile()">⬇️ Download</button>
+        <button class="play-btn" onclick="playNow()">▶️ Play Now</button>
+      </div>
     </div>
 
     <div class="features">
-      <div class="feature"><div class="feature-icon">⚡</div><h3>Speed Boost</h3><p>Optimized routing</p></div>
-      <div class="feature"><div class="feature-icon">🔄</div><h3>Auto Retry</h3><p>Retries on failures</p></div>
-      <div class="feature"><div class="feature-icon">📊</div><h3>Range Support</h3><p>Multithreaded downloads</p></div>
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <h3>Speed Boost</h3>
+        <p>Optimized routing</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔄</div>
+        <h3>Auto Retry</h3>
+        <p>Retries on failures</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📊</div>
+        <h3>Range Support</h3>
+        <p>Multithreaded downloads</p>
+      </div>
     </div>
   </div>
 
@@ -440,6 +465,21 @@ function getInterface() {
         btn.textContent = '✅ Copied!';
         setTimeout(() => btn.textContent = '📋 Copy URL', 2000);
       });
+    }
+
+    function downloadFile() {
+      const proxyUrl = document.getElementById('proxyUrl').textContent;
+      const link = document.createElement('a');
+      link.href = proxyUrl;
+      link.download = '';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function playNow() {
+      const proxyUrl = document.getElementById('proxyUrl').textContent;
+      window.open(proxyUrl, '_blank');
     }
 
     function clearForm() {
